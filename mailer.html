@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Mailer</title>
+      <link rel="stylesheet" href="style.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+      <script type="text/javascript" src="script.js"></script>
+      <!-- Move to stylesheet -->
+      <style>
+        body{
+          padding: 0;
+          margin: 0;
+          border: 0;
+          background: #ccc
+        }
+        .container{
+          background: #fff;
+          margin: 0 5%;
+          padding: 40px;
+        }
+        textarea{
+          font-family: monospace;
+          height: 500px;
+          width: 100%;
+        }
+        .submit{
+          text-align: center;
+        }
+        .submit input{
+          padding: 10px 60px;
+          font-size: 20px;
+          background: red;
+          color: #fff;
+          border: 0;
+        }
+      </style>
+      <script type="text/javascript">
+      $(document).ready(function(){
+          $("input[type=checkbox]").click(function(){
+            if ($(this).val()){
+              console.log("test");
+            }
+          });
+        });
+      </script>
+    </head>
+    <body>
+      <div class="container">
+        <form class="" action="http://taskinoz.com/test/mail.php" method="post">
+          <div class="email">
+            <input type="email" name="to" placeholder="example@example.com">
+          </div>
+          <div class="subject">
+            <input type="text" name="subject" placeholder="Subject">
+          </div>
+          <div class="html-email">
+            <textarea name="body"></textarea>
+          </div>
+          <div class="local-testing">
+            <input type="checkbox" name="d" value="true">
+          </div>
+          <div class="submit">
+            <input type="submit" value="Send">
+          </div>
+        </form>
+      </div>
+    </body>
+  </html>
