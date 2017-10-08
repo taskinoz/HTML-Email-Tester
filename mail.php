@@ -28,6 +28,7 @@ if (isset($_POST['body'])){
 //$message = file_get_contents("/var/www/html/Cannon-Email-Reorganised.html");
 
 //Debuging
+/* Feature is isecure. Will replace when I can secure it
 if (isset($_POST['d'])){
   //Get text from url
   echo $to;
@@ -42,4 +43,12 @@ else {
       echo 'Unable to send email. Please try again.';
   }
 }
+*/
+// Sending email
+if(mail($to, $subject, $message, $headers)){
+    echo 'Your mail has been sent successfully.';
+} else{
+    echo 'Unable to send email. Please try again.';
+}
+
 ?>
