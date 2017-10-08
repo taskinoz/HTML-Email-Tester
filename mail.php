@@ -1,5 +1,14 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>EmailTester</title>
+      <!-- Add Shared Stylesheet For Input -->
+      <!--<link rel="stylesheet" href="style.css">-->
+    </head>
+    <body>
 <?php
-
 if (isset($_POST['to'])){
   //Get text from url
   $to = $_POST['to'];
@@ -25,15 +34,25 @@ if (isset($_POST['body'])){
   //Get text from url
   $message = $_POST['body'];
 }
-//$message = file_get_contents("/var/www/html/Cannon-Email-Reorganised.html");
 
 //Debuging
-/* Feature is isecure. Will replace when I can secure it
 if (isset($_POST['d'])){
   //Get text from url
-  echo $to;
-  echo $subject;
-  echo $message;
+  echo '<div class="email">Email: '.$to.'</div>';
+  echo '<div class="subject">Subject: '.$subject.'</div>';
+  //Remove script tags (Not good sanitization but it will break it so it doesnt work)
+  $message = str_ireplace ("<script","<p",$message);
+  $message = str_ireplace ("/script>","/p>",$message);
+  //Script to Style - Remove inline JavaScript
+  $inline = array("onchange","onclick","onmouseover","onmouseout","onkeydown","onload");
+  for ($i=0; $i <= count($inline) ; $i++) {
+    $message = str_ireplace ($inline[$i],"style",$message);
+  }
+  //Remove php tags (Not good sanitization but it will break it so it doesnt work)
+  $message = str_ireplace ("<?php","<p>",$message);
+  $message = str_ireplace ("?>",",</p>",$message);
+
+  echo '<div class="email-body">'.$message.'</div>';
 }
 else {
   // Sending email
@@ -43,12 +62,7 @@ else {
       echo 'Unable to send email. Please try again.';
   }
 }
-*/
-// Sending email
-if(mail($to, $subject, $message, $headers)){
-    echo 'Your mail has been sent successfully.';
-} else{
-    echo 'Unable to send email. Please try again.';
-}
 
 ?>
+</body>
+</html>
