@@ -4,21 +4,55 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Mailer</title>
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/theme/3024-day.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-      <script type="text/javascript" src="script.js"></script>
+      <script src="codemirror.js"></script>
       <!-- Move to stylesheet -->
       <style>
+        /* HTML RESET */
         body{
           padding: 0;
           margin: 0;
           border: 0;
-          background: #ccc
+          background: #ccc;
+          font-family: Arial;
+          transition: 0.3s;
+        }
+        h1{
+          text-align: center;
+          font-size: 40px;
+          margin: 20px 40px;
         }
         .container{
           background: #fff;
-          margin: 0 5%;
+          margin: 40px 15%;
           padding: 40px;
+          box-shadow: 2px 2px 8px 2px #999;
+        }
+
+        /* FORM */
+        label{
+          display: block;
+          font-size: 14px;
+        }
+        p{
+          font-size: 20px;
+        }
+        input[type=text],input[type=email]{
+          padding: 6px;
+          font-size: 14px;
+          width: 50%;
+          border: 1px solid #fff;
+          border-bottom: 1px solid #ccc;
+        }
+        .local-testing{
+          margin: 10px 0;
+        }
+        input[type=checkbox], .local-testing label{
+          display: inline-block;
+          width: auto;
+          vertical-align: middle;
         }
         textarea{
           font-family: monospace;
@@ -31,35 +65,82 @@
         .submit input{
           padding: 10px 60px;
           font-size: 20px;
-          background: red;
+          background: #943939;
           color: #fff;
           border: 0;
         }
+        /* CODEMIRROR */
+        .CodeMirror{
+          border: 1px solid #ccc;
+        }
+        @media screen and (max-width:1000px) {
+          .container{
+            margin: 30px 10%;
+          }
+        }
+        @media screen and (max-width:700px) {
+          .container{
+            margin: 20px 5%;
+          }
+          input[type=text],input[type=email]{
+            width: calc(100% - 6px);
+          }
+        }
+        @media screen and (max-width:500px) {
+          .container{
+            padding: 20px;
+            margin: 20px 0;
+          }
+          .submit input{
+            margin: 20px 0;
+            width: 100%;
+          }
+        }
       </style>
       <script type="text/javascript">
+      function colorcoding() {
+        window.editor = CodeMirror.fromTextArea(document.getElementById("textareaCode"), {
+          mode: "text/html",
+          htmlMode: true,
+          lineNumbers: true,
+          lineWrapping: true,
+          smartIndent: false,
+          addModeClass: true
+        });
+        //  window.editor.on("change", function () {window.editor.save();});
+      }
+
       $(document).ready(function(){
           $("input[type=checkbox]").click(function(){
             if ($(this).val()){
               console.log("test");
             }
           });
+
+          colorcoding();
+          //editor.setOption("theme","3024-day");
         });
       </script>
     </head>
     <body>
+      <h1>HTML Email Tester</h1>
       <div class="container">
         <form class="" action="mail.php" method="post">
           <div class="email">
+            <p>Email</p>
             <input type="email" name="to" placeholder="example@example.com">
           </div>
           <div class="subject">
-            <input type="text" name="subject" placeholder="Subject">
+            <p>Subject</p>
+            <input type="text" name="subject" placeholder="I am a Nigerian Prince...">
           </div>
           <div class="html-email">
-            <textarea name="body"></textarea>
+            <p>HTML</p>
+            <textarea id="textareaCode" name="body" rows="8" cols="80"></textarea>
           </div>
           <div class="local-testing">
-            <input type="checkbox" name="d" value="true"> <label>View in the browser</label>
+            <input id="browser" type="checkbox" name="d" value="true">
+            <label for="browser">View in the browser</label>
           </div>
           <div class="submit">
             <input type="submit" value="Send">
